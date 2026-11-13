@@ -1,0 +1,40 @@
+name: eso_bump_check
+checks:
+- path: helm-prereqs/operators/values/external-secrets.yaml
+  lines:
+  - 1: "## External Secrets Operator 2.9.0"
+  - 2: "## https://github.com/external-secrets/external-secrets"
+- path: helm-prereqs/templates/eso-external-secrets.yaml
+  lines:
+  - 11: "apiVersion: external-secrets.io/v1"
+  - 46: "apiVersion: external-secrets.io/v1"
+  - 85: "apiVersion: external-secrets.io/v1"
+  - 117: "apiVersion: external-secrets.io/v1"
+- path: helm-prereqs/templates/eso-secretstores.yaml
+  lines:
+  - 7: "apiVersion: external-secrets.io/v1"
+  - 65: "apiVersion: external-secrets.io/v1"
+- path: helm-prereqs/templates/postgresql.yaml
+  lines:
+  - "44-58": |
+      preparedDatabases:
+        nico_system_nico:
+          defaultUsers: false
+          schemas:
+            public:
+              defaultRoles: false
+          extensions:
+            pg_trgm: public
+        nico_rest:
+          defaultUsers: false
+          schemas:
+            public:
+              defaultRoles: false
+          extensions:
+            pg_trgm: public
+- path: helm-prereqs/helmfile.yaml
+  lines:
+  - 120: 'version: "2.9.0"'
+- path: helm-prereqs/README.md
+  lines:
+  - 347: 'external-secrets           (external-secrets/external-secrets 2.9.0)'
