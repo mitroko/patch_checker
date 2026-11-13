@@ -10,5 +10,5 @@ OK. All patches in place
 ```
 
 ### Requires:
-git
-python pyaml
+- git
+- python pyaml
