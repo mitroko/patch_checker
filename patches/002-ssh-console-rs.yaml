@@ -1,0 +1,14 @@
+name: serial_console_session
+checks:
+- path: helm/charts/nico-ssh-console-rs/templates/configmap.yaml
+  lines:
+  - "25-30": |
+      {{- $sol := (.Values.configFiles | default dict).forceDeactivateConflictingIpmiSolSessions -}}
+      {{- if not (kindIs "invalid" $sol) -}}
+      {{- $solLine := printf "force_deactivate_conflicting_ipmi_sol_sessions = %s" (ternary "true" "false" (eq (toString $sol) "true")) -}}
+      {{- $hasSol := regexMatch "(?m)^\\s*force_deactivate_conflicting_ipmi_sol_sessions\\s*=" $config -}}
+      {{- $config = ternary (regexReplaceAll "(?m)^\\s*force_deactivate_conflicting_ipmi_sol_sessions\\s*=.*$" $config $solLine) (printf "%s\n%s" $solLine $config) $hasSol -}}
+      {{- end -}}
+- path: helm/charts/nico-ssh-console-rs/values.yaml
+  lines:
+  - 116: '# forceDeactivateConflictingIpmiSolSessions: true  # unset = keep the line as shipped'
