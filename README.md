@@ -12,3 +12,8 @@ OK. All patches in place
 ### Requires:
 - git
 - python pyaml
+
+### Versioning
+Yes, line numbers may change across different releases and several patches may be invalid or you need to add new related to a release.
+This is why this repo has branches matching the product.
+Checkout your release to get list of checks matching your product release
